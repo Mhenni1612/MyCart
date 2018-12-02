@@ -2,7 +2,6 @@ package com.example.wael.mycart;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyAdapter extends BaseExpandableListAdapter {
+public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private List<String> header_titles;
     private HashMap<String, List<String>> child_titles;
     private Context ctx;
 
-    MyAdapter(Context ctx, Map<String, Categories> coll){
+    ExpandableListViewAdapter(Context ctx, Map<String, Categories> coll){
 
         Categories cat;
 
@@ -32,10 +31,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
             cat=entry.getValue();
             header_titles.add(cat.getNom());
             child_titles.put(cat.getNom(),cat.getSousCategorie());
-            Log.d("mesage", "******************************ADAPTER****************************************\n"+cat.toString());
         }
-
-        Log.d("mesage", "******************************ADAPTER CREATED****************************************\n"+coll.isEmpty());
     }
 
     @Override
@@ -84,7 +80,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         TextView textView = (TextView)convertView.findViewById(R.id.heading_item);
         textView.setTypeface(null, Typeface.BOLD);
         textView.setText(title);
-        Log.d("mesage", "******************************getGroupView****************************************"+convertView.toString());
+
         return convertView;
     }
 
@@ -106,4 +102,5 @@ public class MyAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
 }

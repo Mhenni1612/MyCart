@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "890676449672",
-    "firebase_url": "https://test01-8c340.firebaseio.com",
-    "project_id": "test01-8c340",
-    "storage_bucket": "test01-8c340.appspot.com"
+    "project_number": "913323075586",
+    "firebase_url": "https://mycart-15846.firebaseio.com",
+    "project_id": "mycart-15846",
+    "storage_bucket": "mycart-15846.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:890676449672:android:037e98cc4971a989",
+        "mobilesdk_app_id": "1:913323075586:android:d42bc3cb0a0b4605",
         "android_client_info": {
-          "package_name": "com.example.wael.drawer_toolbar"
+          "package_name": "com.example.mhenn.login"
         }
       },
       "oauth_client": [
         {
-          "client_id": "890676449672-c7tafh5lkopqmjch6e1ogsbjsb7l6paf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.wael.drawer_toolbar",
-            "certificate_hash": "e1ea04a83389b3e296739cca8263829aa87f58ce"
-          }
-        },
-        {
-          "client_id": "890676449672-b2r3t10s8gk28dbhrce55v0qotlt6kir.apps.googleusercontent.com",
+          "client_id": "913323075586-n683dibu7tv16fheh6gmqn5ja6gse84t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD7lo_-PSPDsDZQgmW--jrpNgxja1-Si2E"
+          "current_key": "AIzaSyB6lRe-Yj2FOeaOcXTGelp_QKzCo7i15Yk"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "890676449672-b2r3t10s8gk28dbhrce55v0qotlt6kir.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
@@ -52,20 +39,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:890676449672:android:5b39c1c08669e2c6",
+        "mobilesdk_app_id": "1:913323075586:android:5b39c1c08669e2c6",
         "android_client_info": {
           "package_name": "com.example.wael.mycart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "890676449672-b2r3t10s8gk28dbhrce55v0qotlt6kir.apps.googleusercontent.com",
+          "client_id": "913323075586-n683dibu7tv16fheh6gmqn5ja6gse84t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD7lo_-PSPDsDZQgmW--jrpNgxja1-Si2E"
+          "current_key": "AIzaSyB6lRe-Yj2FOeaOcXTGelp_QKzCo7i15Yk"
         }
       ],
       "services": {

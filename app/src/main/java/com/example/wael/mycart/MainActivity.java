@@ -1,9 +1,12 @@
 package com.example.wael.mycart;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,6 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.support.v4.app.Fragment;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,12 +32,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.app.PendingIntent.getActivity;
 import static android.content.ContentValues.TAG;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ExpandableListView expandableListView;
+    ExpandableListViewAdapter adapter;
     Map<String, Categories> data;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    //Fragment f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,49 +70,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-       /* expandableListView = (ExpandableListView)findViewById(R.id.exp_listview);
-
-        Dao dao=new Dao();
-        //data=dao.getCat();
-
-        Log.d("mesage", "**********************************************************************\n"+data.isEmpty());
-        MyAdapter adapter = new MyAdapter(this, data);
-        expandableListView.setAdapter(adapter);*/
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collCat = db.collection("/menu/UJ3eL7npm2V6H3MEizSs/categories");
+        expandableListView = (ExpandableListView)findViewById(R.id.exp_listview);
         final MainActivity main=this;
-        //final HashMap<String, Categories> docData = new HashMap<>();
+        setCategoryList(main);
 
-        collCat
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            HashMap<String, Categories> docData = new HashMap<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("mesage", "******************************message****************************************");
-                                //Log.d(TAG, document.getId() + " => " + document.getData());*/
-                                //docData.put(document.getId(),document.getData());
+        createProduitFragment();
 
-                                Categories cat = document.toObject(Categories.class);
-                                cat.setId(document.getId());
-                                docData.put(document.getId(),cat);
-                                Log.d("fds",docData.toString());
-                            }
-                            ExpandableListView expandableListView = (ExpandableListView)findViewById(R.id.exp_listview);
-                            Log.d("final",docData.toString());
-                            MyAdapter adapter = new MyAdapter(main, docData);
-                            expandableListView.setAdapter(adapter);
-                        } else {
-                            Log.d(TAG, "**************************************************Error getting documents: ", task.getException());
+        expandableListView.setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandablelistview, View clickedView, int groupPosition, int childPosition, long childId) {
+                String cat=adapter.getChild(groupPosition, childPosition).toString();
+                Log.d("click","**************************************\n"+cat);
+                FragmentManager fm = getSupportFragmentManager();
+                RecyclerFragment f = (RecyclerFragment) fm.findFragmentByTag("produit");
+                f.refreshFragment(cat);
+                return false;
+            }
+        });
 
-                        }
-                    }
-                });
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -157,5 +147,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void setCategoryList(final Context ctx){
+        CollectionReference collCat = db.collection("/menu/UXWGaeXrMcSolwMULl9c/categories");
+        Log.d("setCatList","******************************Start**************************");
+        collCat
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            HashMap<String, Categories> docData = new HashMap<>();
+                            Log.d("setCatList","******************************Success before loop**************************"+(task.getResult()==null));
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("setCatList","******************************Success inside loop**************************");
+                                Log.d("setCatList", document.getId() + " ******=> " + document.getData());
+                                Categories cat = document.toObject(Categories.class);
+                                cat.setId(document.getId());
+                                docData.put(document.getId(),cat);
+                            }
+                            Log.d("setCatList","******************************data collected**************************\n"+docData);
+                            adapter = new ExpandableListViewAdapter(ctx, docData);
+                            expandableListView.setAdapter(adapter);
+                            Log.d("setCatList","******************************DONE**************************");
+                        } else {
+                            Log.d(TAG, "**********************Error getting documents: ", task.getException());
+
+                        }
+                    }
+                });
+    }
+
+    public void createProduitFragment(){
+        Log.d("Produit","******************************Start**************************");
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.add(R.id.fragment_container, new RecyclerFragment().newInstance(""),"produit");
+        mFragmentTransaction.commit();
+        Log.d("Produit","******************************DONE**************************");
     }
 }
