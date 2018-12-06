@@ -75,7 +75,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         if(convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater)this.ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView =layoutInflater.inflate(R.layout.parent_layout, null);
+            convertView =layoutInflater.inflate(R.layout.menu_categorie_parent_layout, null);
         }
         TextView textView = (TextView)convertView.findViewById(R.id.heading_item);
         textView.setTypeface(null, Typeface.BOLD);
@@ -90,7 +90,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater)this.ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.child_layout, null);
+            convertView = layoutInflater.inflate(R.layout.menu_categorie_child_layout, null);
         }
         TextView textView = (TextView)convertView.findViewById(R.id.child_item);
         textView.setText(title);

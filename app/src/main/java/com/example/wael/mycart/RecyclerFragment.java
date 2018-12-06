@@ -22,7 +22,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class RecyclerFragment extends Fragment {
         Log.d("ProduitView", "******************************message****************************************");
 
         final View view = inflater.inflate(R.layout.recycler_view_fragment, container , false);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.produit_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
 
         Log.d("ProduitView", "******************************Start collecting data****************************************");
@@ -139,13 +138,30 @@ public class RecyclerFragment extends Fragment {
             holder.textNom.setText(mlist.get(position).getNom());
             String a = (mlist.get(position).getGout()) + " - " + (mlist.get(position).getTaille());
             holder.textGt.setText(a);
-            holder.textPrix.setText(mlist.get(position).getPrix());
+            holder.textPrix.setText(setPrix(mlist.get(position).getPrix()));
             Picasso.get().load(mlist.get(position).convertImage()).into(holder.imageProd);
         }
 
         @Override
         public int getItemCount() {
             return mlist.size() ;
+        }
+
+        public String setPrix(double p){
+            double a=p;
+            int i= (int) a;
+            a-=i;
+            int l=String.valueOf(a).length();
+            if(a!=0){
+                if(l==4){
+                    return String.valueOf(p)+"0  DT";
+                }else if(l>4){
+                    return String.valueOf(p)+"  DT";
+                }
+            }else{
+                return String.valueOf(p)+"000  DT";
+            }
+            return String.valueOf(p)+"00  DT";
         }
     }
 

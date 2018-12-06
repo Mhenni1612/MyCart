@@ -9,7 +9,7 @@ public class Produit {
     private String nom;
     private String taille;
     private String gout;
-    private String prix;
+    private double prix;
     private String image;
 
     public String getCategorie() {
@@ -31,7 +31,7 @@ public class Produit {
     private String categorie;
     private String sousCategorie;
 
-    public Produit(String marque, String nom, String taille, String gout, String prix, String image) {
+    public Produit(String marque, String nom, String taille, String gout, float prix, String image) {
         this.marque = marque;
         this.nom = nom;
         this.taille = taille;
@@ -78,11 +78,11 @@ public class Produit {
         this.gout = gout;
     }
 
-    public String getPrix() {
+    public double getPrix() {
         return prix;
     }
 
-    public void setPrix(String prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
 
